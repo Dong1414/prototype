@@ -34,6 +34,11 @@
             </a>
           </li>
           <li v-if="globalShare.isLogined">
+               <router-link to="/member/expertApp" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
+              장례지도사 신청
+            </router-link>
+          </li>
+          <li v-if="globalShare.isLogined">
                <router-link to="/article/write" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               글 작성
             </router-link>

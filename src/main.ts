@@ -20,6 +20,7 @@ import ArticleWritePage from './pages/ArticleWritePage.vue'
 import ArticleDetailPage from './pages/ArticleDetailPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
 import MemberJoinPage from './pages/MemberJoinPage.vue'
+import MemberExpertAppPage from './pages/MemberExpertAppPage.vue'
 
 
 // 전역상태 만들기
@@ -45,7 +46,7 @@ const globalShare:any = reactive({
     localStorage.removeItem("loginedMemberNickname");
     localStorage.removeItem("loginedMemberProfileImgUrl");
     
-    location.replace('/member/login');
+    location.replace('/member/login');    
   }
 });
 
@@ -82,11 +83,17 @@ const routes = [
         component: MemberLoginPage,
         props: (route:any) => ({ globalShare })
       },
+      {        
+        path: '/member/expertApp',        
+        component: MemberExpertAppPage,
+        props: (route:any) => ({ globalShare })
+      },
       {
         path: '/member/join',
         component: MemberJoinPage,
         props: (route:any) => ({ globalShare })
       }
+      
 ];
 
 // 라우터 생성
