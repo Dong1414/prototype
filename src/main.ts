@@ -1,7 +1,6 @@
 import { createApp, reactive, computed } from 'vue'
 import {createRouter, createWebHistory} from 'vue-router'
 
-
 // 앱 컴포넌트 불러오기
 import App from './App.vue'
 
@@ -18,9 +17,14 @@ import HomeMainPage from'./pages/HomeMainPage.vue'
 import ArticleListPage from'./pages/ArticleListPage.vue'
 import ArticleWritePage from './pages/ArticleWritePage.vue'
 import ArticleDetailPage from './pages/ArticleDetailPage.vue'
+import ArticleRequestPage  from './pages/ArticleRequestPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
 import MemberJoinPage from './pages/MemberJoinPage.vue'
 import MemberExpertAppPage from './pages/MemberExpertAppPage.vue'
+import MemberCalendarPage  from './pages/MemberCalendarPage.vue'
+import MemberRequestListPage  from './pages/MemberRequestListPage.vue'
+import AcceptPage  from './pages/AcceptPage.vue'
+
 
 
 // 전역상태 만들기
@@ -91,6 +95,26 @@ const routes = [
       {
         path: '/member/join',
         component: MemberJoinPage,
+        props: (route:any) => ({ globalShare })
+      },
+      {
+        path: '/member/calendar',
+        component: MemberCalendarPage,
+        props: (route:any) => ({ globalShare })
+      },
+      {
+        path: '/member/requestList',
+        component: MemberRequestListPage,
+        props: (route:any) => ({ globalShare })
+      },
+      {
+        path: '/article/request',
+        component: ArticleRequestPage,
+        props: (route:any) => ({ globalShare })
+      },
+      {
+        path: '/accept',
+        component: AcceptPage,
         props: (route:any) => ({ globalShare })
       }
       

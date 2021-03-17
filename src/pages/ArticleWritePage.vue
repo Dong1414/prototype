@@ -1,7 +1,6 @@
 <template>
   <TitleBar>게시물 작성</TitleBar>
-
-  <section class="section section-article-write-form px-2">
+    <section class="section section-article-write-form px-2">
     <div class="container mx-auto">
       <div class="px-6 py-6 bg-white rounded-lg shadow-md">
         <form v-if="globalShare.isLogined" v-on:submit.prevent="checkAndWriteArticle">

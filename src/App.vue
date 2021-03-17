@@ -39,6 +39,16 @@
             </router-link>
           </li>
           <li v-if="globalShare.isLogined">
+               <router-link to="/member/requestList" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
+              요청목록
+            </router-link>
+          </li>
+          <li v-if="globalShare.isLogined">
+               <router-link to="/member/calendar" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
+              일정
+            </router-link>
+          </li>
+          <li v-if="globalShare.isLogined">
                <router-link to="/article/write" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               글 작성
             </router-link>

@@ -1,5 +1,5 @@
 <template>
-  <TitleBar>일정 상세</TitleBar>
+  <TitleBar>요청 페이지</TitleBar>
   
   <section class="section section-member-login-form px-2">
     <div class="container mx-auto">
@@ -39,18 +39,11 @@
               <li>등 등 등</li>
             </ul>
           </div>
-        </div>
-        <div class="inputform">
-          <div class="wid10">
-            <span>도우미</span>
-          </div>
-          <div class="w-auto">
-            <ul class="text-left">
-              <li>김도움 <span>010-4567-7890</span></li>
-              <li>김도움 <span>010-4567-7890</span></li>
-              <li>김도움 <span>010-4567-7890</span></li>
-            </ul>
-          </div>
+        </div>       
+        <div class="btns text-center">
+          <router-link :to="'/accept' " class="btn-primary">수락</router-link>
+          <input v:on="submit" value="수락" class="btn-primary" />
+          <input v:on="submit" value="거절" class="btn-primary" />
         </div>
       </div>
     </div>
@@ -60,8 +53,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
-import { IArticle } from '../types/'
-import { MainApi } from '../apis/'
+import { IArticle } from '../types'
+import { MainApi } from '../apis'
 export default defineComponent({
   name: 'ArticleDetailPage',
   props: {
