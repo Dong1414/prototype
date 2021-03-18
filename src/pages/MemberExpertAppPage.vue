@@ -30,11 +30,14 @@
             <option value="16">경상북도</option>
           </select> 
           </FormRow>
-          <FormRow title="자격증">
-            <input ref="certificateElRef" class="form-row-input" type="password" placeholder="자격증을 입력해주세요.">
+          <FormRow title="자격증">            
+            <input ref="certificateElRef1" class="w-1/4 rounded-sm mr-4" type="text" placeholder="자격증을 입력해주세요.">
+            <input ref="certificateElRef2" class="w-1/4 rounded-sm" type="text" placeholder="발행처">
           </FormRow>
           <FormRow title="경력">
-            <input ref="careerElRef" class="form-row-input" type="password" placeholder="경력을 입력해주세요.">
+            <input ref="careerElRef1" class="w-1/4 rounded-sm" type="password" placeholder="2010.4">
+            ~ 
+            <input ref="careerElRef2" class="w-1/4 rounded-sm" type="password" placeholder="2021.2">
           </FormRow>          
           <FormRow title="등록">
             <div class="btns">
