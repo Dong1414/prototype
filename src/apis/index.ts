@@ -110,7 +110,7 @@ export interface MainApi__member_authKey__IResponseBody extends Base__IResponseB
   };
 }
 
-export interface MainApi__member_doJoin__IResponseBody extends Base__IResponseBodyType1 {
+export interface MainApi__member_doExpertJoin__IResponseBody extends Base__IResponseBodyType1 {
   body:{
     id: number,
   };
@@ -120,6 +120,8 @@ export interface MainApi__common_genFile_doUpload__IResponseBody extends Base__I
     genFileIdsStr: string,
   };
 }
+
+
 // http://localhost:8021/usr/ 와의 통신장치
 export class MainApi extends HttpClient {
   public constructor() {
@@ -178,19 +180,22 @@ export class MainApi extends HttpClient {
       }
     );
   }
-  public member_doJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string) {
-    return this.postByForm<MainApi__member_doJoin__IResponseBody>(
-      `/usr/member/doJoin`, {
+  public member_doExpertJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, certificate:string, career:string) {
+    return this.postByForm<MainApi__member_doExpertJoin__IResponseBody>(
+      `usr/member/doExpertJoin`, {
         loginId,
         loginPw,
         name,
         nickname,
         cellphoneNo,
         email,
-        genFileIdsStr
+        genFileIdsStr,
+        sido,
+        certificate,
+        career
       }
     );
-  }
+  }  
   public common_genFile_doUpload(profileImg:File) {
     const formDate = new FormData();
     formDate.append("file__member__0__common__attachment__1", profileImg);

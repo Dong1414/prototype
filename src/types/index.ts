@@ -19,5 +19,8 @@
     nickname:string;
     cellphoneNo:string;
     email:string;
+    sido:string;
+		certificate:string;
+		career:string;
     extra__thumbImg:string;
   }

@@ -39,6 +39,7 @@ export default defineComponent({
       required: true
     },
   },
+  
   setup(props) {
     const route = useRoute();
 

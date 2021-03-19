@@ -9,7 +9,7 @@
             <span>의뢰인</span>
           </div>
           <div class="w-auto">
-            <span>유저1</span>
+            <span>{{article.extra__writer}}</span>
           </div>
         </div>
         <div class="inputform">
@@ -25,7 +25,15 @@
             <span>장소</span>
           </div>
           <div class="w-auto">
-            <span>대전광역시 서구 가수원동 관저동로 158</span>
+            <span>{{article.place}}</span>
+          </div>
+        </div>
+        <div class="inputform">
+          <div class="wid10">
+            <span>기간</span>
+          </div>
+          <div class="w-auto">
+            <span>{{article.term}}</span>
           </div>
         </div>
         <div class="inputform">
@@ -34,7 +42,7 @@
           </div>
           <div class="w-auto">
             <ul class="text-left">
-              <li>도우미 00명</li>
+              <li>{{article.body}}</li>
               <li>음식 00</li>
               <li>등 등 등</li>
             </ul>

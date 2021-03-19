@@ -20,10 +20,10 @@ import ArticleDetailPage from './pages/ArticleDetailPage.vue'
 import ArticleRequestPage  from './pages/ArticleRequestPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
 import MemberJoinPage from './pages/MemberJoinPage.vue'
-import MemberExpertAppPage from './pages/MemberExpertAppPage.vue'
 import MemberCalendarPage  from './pages/MemberCalendarPage.vue'
 import MemberRequestListPage  from './pages/MemberRequestListPage.vue'
 import AcceptPage  from './pages/AcceptPage.vue'
+
 
 
 
@@ -37,7 +37,7 @@ const loginedMemberProfileImgUrl = Util.toStringOrNull(localStorage.getItem("log
 const globalShare:any = reactive({
   loginedMember:{
     authKey,
-    id:loginedMemberId,
+    id:loginedMemberId,    
     name:loginedMemberName,
     nicknam:loginedMemberNickname,
     profileImgUrl:loginedMemberProfileImgUrl
@@ -86,12 +86,7 @@ const routes = [
         path: '/member/login',
         component: MemberLoginPage,
         props: (route:any) => ({ globalShare })
-      },
-      {        
-        path: '/member/expertApp',        
-        component: MemberExpertAppPage,
-        props: (route:any) => ({ globalShare })
-      },
+      },      
       {
         path: '/member/join',
         component: MemberJoinPage,
@@ -116,7 +111,8 @@ const routes = [
         path: '/accept',
         component: AcceptPage,
         props: (route:any) => ({ globalShare })
-      }
+      },
+
       
 ];
 

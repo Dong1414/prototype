@@ -4,6 +4,56 @@ CREATE DATABASE untactTeacher;
 USE untactTeacher;
 
 
+CREATE TABLE `expertMember` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    loginId CHAR(30) NOT NULL,
+    loginPw VARCHAR(100) NOT NULL,
+    `name` CHAR(30) NOT NULL,
+    `nickname` CHAR(30) NOT NULL,
+    `email` CHAR(100) NOT NULL,
+    `cellphoneNo` CHAR(20) NOT NULL,
+    `sido` CHAR(100) NOT NULL,
+    `certificate` CHAR(100) NOT NULL,
+    `career` CHAR(100) NOT NULL
+);
+
+INSERT INTO `expertMember`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = "asd",
+loginPw = "asd",
+`name` = "asd",
+nickname = "asd",
+cellphoneNo = "01012341234",
+email = "asdf@asdf",
+sido = "대전",
+certificate = "장례지도사2급",
+career = "2015.02~2021.03";
+
+
+CREATE TABLE requestArticle (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    term CHAR(50) NOT NULL,    #기간
+    place CHAR(100) NOT NULL, # 장소
+    `body` TEXT NOT NULL,#일단 요청사항 통으로 넣어놓기
+    memberId INT(10) NOT NULL, # 의뢰 요청자 ID
+    expertId INT(10) NOT NULL # 장례지도사 ID
+);
+
+INSERT INTO requestArticle
+SET regDate = NOW(),
+updateDate = NOW(),
+term = "2021.03.19 ~ 2021.03.21",
+place = "대전광역시 서구 가수원동 관저동로 158",
+`body` = "요청사항1, 요청사항2, 요청사항3",
+memberId = 1,
+expertId = 1;
+
+
 # 게시물 테이블 생성
 CREATE TABLE article (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,

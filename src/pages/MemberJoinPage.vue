@@ -29,6 +29,35 @@
           <FormRow title="이메일">
             <input ref="emailElRef" class="form-row-input" type="email" placeholder="이메일을 입력해주세요.">
           </FormRow>
+          <FormRow title="활동지역">            
+             <select name="sido" id="sido" class="form-row-select" ref="sidoElRef">            
+            <option value="1">시/도 선택</option>
+            <option value="서울특별시">서울특별시</option>
+            <option value="인천광역시">인천광역시</option>
+            <option value="대전광역시">대전광역시</option>
+            <option value="광주광역시">광주광역시</option>
+            <option value="대구광역시">대구광역시</option>
+            <option value="울산광역시">울산광역시</option>
+            <option value="부산광역시">부산광역시</option>
+            <option value="경기도">경기도</option>
+            <option value="강원도">강원도</option>
+            <option value="충청북도">충청북도</option>
+            <option value="충청남도">충청남도</option>
+            <option value="전라북도">전라북도</option>
+            <option value="전라남도">전라남도</option>
+            <option value="경상북도">경상북도</option>
+            <option value="경상남도">경상남도</option>
+          </select> 
+          </FormRow>
+          <FormRow title="자격증">            
+            <input ref="certificateElRef1" class="w-1/4 rounded-sm mr-4" type="text" placeholder="자격증을 입력해주세요.">
+            <input ref="certificateElRef2" class="w-1/4 rounded-sm" type="text" placeholder="발행처">
+          </FormRow>
+          <FormRow title="경력">
+            <input ref="careerElRef1" class="w-1/4 rounded-sm" type="text" placeholder="2010.4">
+            ~ 
+            <input ref="careerElRef2" class="w-1/4 rounded-sm" type="text" placeholder="2021.2">
+          </FormRow>
           <FormRow title="가입">
             <div class="btns">
               <input type="submit" value="가입" class="btn-primary" />
@@ -66,7 +95,14 @@ export default defineComponent({
     const nicknameElRef = ref<HTMLInputElement>();
     const cellphoneNoElRef = ref<HTMLInputElement>();
     const emailElRef = ref<HTMLInputElement>();
-    function checkAndJoin() {
+    const sidoElRef = ref<HTMLInputElement>();    
+    const certificateElRef1 = ref<HTMLInputElement>();
+    const certificateElRef2 = ref<HTMLInputElement>();
+    const careerElRef1 = ref<HTMLInputElement>();
+    const careerElRef2 = ref<HTMLInputElement>();
+    
+
+    function checkAndJoin() {     
       // 로그인아이디 체크
       if ( loginIdElRef.value == null ) {
         return;
@@ -143,9 +179,70 @@ export default defineComponent({
         emailEl.focus();
         return;
       }
+
+      // 활동지역 체크
+      if ( sidoElRef.value == null ) {
+        return;
+      }
+      const sidoEl = sidoElRef.value;
+      sidoEl.value = sidoEl.value.trim();
+      if ( sidoEl.value == '1' ) {
+        alert('활동지역을 선택하세요');
+        sidoEl.focus();
+        return;
+      }
+      // 자격증 체크
+      if ( certificateElRef1.value == null ) {
+        return;
+      }
+      const certificateEl1 = certificateElRef1.value;
+      certificateEl1.value = certificateEl1.value.trim();
+      if ( certificateEl1.value.length == 0 ) {
+        alert('자격증을 입력해주세요');
+        certificateEl1.focus();
+        return;
+      }
+
+      if ( certificateElRef2.value == null ) {
+        return;
+      }
+      const certificateEl2 = certificateElRef2.value;
+      certificateEl2.value = certificateEl2.value.trim();
+      if ( certificateEl2.value.length == 0 ) {
+        alert('발행기관을 입력해주세요');
+        certificateEl2.focus();
+        return;
+      }
+      
+      // 경력 체크
+      if ( careerElRef1.value == null ) {
+        return;
+      }
+      const careerEl1 = careerElRef1.value;
+      careerEl1.value = careerEl1.value.trim();
+      if ( careerEl1.value.length == 0 ) {
+        alert('시작날짜를 입력해주세요');
+        careerEl1.focus();
+        return;
+      }
+
+      if ( careerElRef2.value == null ) {
+        return;
+      }
+      
+      const careerEl2 = careerElRef2.value;
+      careerEl2.value = careerEl2.value.trim();
+      if ( careerEl2.value.length == 0 ) {
+        alert('현재날짜를 입력해주세요');
+         
+        careerEl2.focus();
+        return;
+      }
+      const careerEl = String(careerEl1.value) + ' ~ ' + String(careerEl2.value); 
+      
       
       const startJoin = (genFileIdsStr:string) => {
-        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, cellphoneNoEl.value, emailEl.value, genFileIdsStr);
+        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, cellphoneNoEl.value, emailEl.value, genFileIdsStr, sidoEl.value, certificateEl1.value, careerEl);
       };
       const startFileUpload = (onSuccess:Function) => {
         if ( !!!profileImgElRef.value?.files ) {
@@ -166,8 +263,8 @@ export default defineComponent({
       };
       startFileUpload(startJoin);
     }
-    function join(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string) {
-      mainApi.member_doJoin(loginId, loginPw, name, nickname, cellphoneNo, email, genFileIdsStr)
+    function join(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sidoEl:string, certificateEl:string, careerEl:string) {
+      mainApi.member_doExpertJoin(loginId, loginPw, name, nickname, cellphoneNo, email, genFileIdsStr, sidoEl, certificateEl, careerEl)
         .then(axiosResponse => {
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
@@ -186,6 +283,11 @@ export default defineComponent({
       nicknameElRef,
       cellphoneNoElRef,
       emailElRef,
+      sidoElRef,
+      certificateElRef1,
+      certificateElRef2,      
+      careerElRef1,
+      careerElRef2      
     }
   }
 })

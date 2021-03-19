@@ -25,19 +25,14 @@
           </li>
           <li v-if="globalShare.isLogined == false">
             <router-link to="/member/join" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
-              회원가입
+              장례지도사 회원가입
             </router-link>
           </li>
           <li v-if="globalShare.isLogined">
             <a v-on:click="globalShare.logout" class="cursor-pointer h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               로그아웃
             </a>
-          </li>
-          <li v-if="globalShare.isLogined">
-               <router-link to="/member/expertApp" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
-              장례지도사 신청
-            </router-link>
-          </li>
+          </li>         
           <li v-if="globalShare.isLogined">
                <router-link to="/member/requestList" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               요청목록
@@ -52,7 +47,7 @@
                <router-link to="/article/write" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               글 작성
             </router-link>
-          </li>
+          </li>          
           <li>
             <router-link to="/article/list?boardId=1" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               공지사항 리스트
