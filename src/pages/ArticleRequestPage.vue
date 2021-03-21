@@ -9,7 +9,7 @@
             <span>의뢰인</span>
           </div>
           <div class="w-auto">
-            <span>{{article.extra__writer}}</span>
+            <span>asd</span>
           </div>
         </div>
         <div class="inputform">
@@ -25,7 +25,7 @@
             <span>장소</span>
           </div>
           <div class="w-auto">
-            <span>{{article.place}}</span>
+            <span>asd</span>
           </div>
         </div>
         <div class="inputform">
@@ -33,7 +33,7 @@
             <span>기간</span>
           </div>
           <div class="w-auto">
-            <span>{{article.term}}</span>
+            <span>asd</span>
           </div>
         </div>
         <div class="inputform">
@@ -42,7 +42,7 @@
           </div>
           <div class="w-auto">
             <ul class="text-left">
-              <li>{{article.body}}</li>
+              <li>asd</li>
               <li>음식 00</li>
               <li>등 등 등</li>
             </ul>

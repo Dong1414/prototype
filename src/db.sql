@@ -61,7 +61,7 @@ CREATE TABLE article (
     updateDate DATETIME NOT NULL,
     title CHAR(100) NOT NULL,
     place TEXT NOT NULL,
-    expertId INT(10) NOT NULL
+    expertId int(10) not null
 );
 
 # 게시물, 테스트 데이터 생성

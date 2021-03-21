@@ -26,7 +26,7 @@
         <tbody class="bg-gray-200">
           <tr class="bg-white border-4 border-gray-200 text-center">            
             <td>            
-              <router-link :to="'/article/request?id=1' " class="px-16 py-2 ">유저1</router-link>
+              <router-link :to="'/article/request' " class="px-16 py-2 ">유저1</router-link>
             </td>
             <td class="px-16 py-2">
               <span>
