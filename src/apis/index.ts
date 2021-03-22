@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import {IArticle, IMember} from '../types'
+import {IOrder, IMember} from '../types'
 
 // API 원형
 abstract class HttpClient {
@@ -87,16 +87,17 @@ interface Base__IResponseBodyType1 {
 // /usr/article/list 의 응답 타입
 export interface MainApi__article_list__IResponseBody extends Base__IResponseBodyType1 {
   body:{
-    articles: IArticle[]
+    Order: IOrder[]
   };
 }
 
 // /usr/article/detail 의 응답 타입
 export interface MainApi__article_detail__IResponseBody extends Base__IResponseBodyType1 {
   body:{
-    article: IArticle
+    Order: IOrder
   };
 }
+
 export interface MainApi__article_doWrite__IResponseBody extends Base__IResponseBodyType1 {
   body:{
     id: number
@@ -159,9 +160,9 @@ export class MainApi extends HttpClient {
 
   // http://localhost:8021/usr/detail/id?id=? 를 요청하고 응답을 받아오는 함수
   public article_detail(id: number) {
-    return this.get<MainApi__article_detail__IResponseBody>(`/usr/article/detail?id=${id}`);
-  
+    return this.get<MainApi__article_detail__IResponseBody>(`/usr/order/detail?id=${id}`);  
   }
+  
   public article_doWrite(boardId:number, title: string, body: string) {
     return this.postByForm<MainApi__article_doWrite__IResponseBody>(
       `/article/doAdd`, {
@@ -180,7 +181,7 @@ export class MainApi extends HttpClient {
       }
     );
   }
-  public member_doExpertJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, certificate:string, career:string) {
+  public member_doExpertJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, license:string, career:string, relId:number) {
     return this.postByForm<MainApi__member_doExpertJoin__IResponseBody>(
       `usr/member/doExpertJoin`, {
         loginId,
@@ -191,8 +192,9 @@ export class MainApi extends HttpClient {
         email,
         genFileIdsStr,
         sido,
-        certificate,
-        career
+        license,
+        career,
+        relId
       }
     );
   }  

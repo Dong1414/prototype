@@ -4,9 +4,10 @@
     updateDate:string;
   }
   
-  export interface IArticle extends IEntity {  
-    boardId:number;
-    memberId:number;
+  export interface IOrder extends IEntity {      
+    clientId:number;
+    term:string;
+    funeralHome:string;
     title:string;
     body:string;
     extra__writer:string;

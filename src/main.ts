@@ -16,7 +16,7 @@ import FormRow from './components/FormRow.vue';
 import HomeMainPage from'./pages/HomeMainPage.vue'
 import ArticleListPage from'./pages/ArticleListPage.vue'
 import ArticleWritePage from './pages/ArticleWritePage.vue'
-import ArticleDetailPage from './pages/ArticleDetailPage.vue'
+import OrderDetailPage from './pages/OrderDetailPage.vue'
 import ArticleRequestPage  from './pages/ArticleRequestPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
 import MemberJoinPage from './pages/MemberJoinPage.vue'
@@ -73,8 +73,8 @@ const routes = [
         props: (route:any) => ({ boardId: Util.toIntOrUnd(route.query.boardId), globalShare })
       },
       {
-        path: '/article/detail',
-        component: ArticleDetailPage,
+        path: '/order/detail',
+        component: OrderDetailPage,
         props: (route:any) => ({ id: Util.toIntOrUnd(route.query.id), globalShare })
       },
       {

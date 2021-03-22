@@ -61,7 +61,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
-import { IArticle } from '../types'
+import { IOrder } from '../types'
 import { MainApi } from '../apis'
 export default defineComponent({
   name: 'ArticleDetailPage',
@@ -81,12 +81,12 @@ export default defineComponent({
     const newArticleTitleElRef = ref<HTMLInputElement>();
     const newArticleBodyElRef = ref<HTMLInputElement>();
     const state = reactive({
-      article: {} as IArticle
+      article: {} as IOrder
     });
     function loadArticle(id:number) {
       mainApi.article_detail(id)
       .then(axiosResponse => {
-        state.article = axiosResponse.data.body.article;
+        state.article = axiosResponse.data.body.Order;
       });
     }
     onMounted(() => {

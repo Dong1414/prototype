@@ -9,7 +9,7 @@
             <span>의뢰인</span>
           </div>
           <div class="w-auto">
-            <span>유저1</span>
+            <span>{{ state.Order.title }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -60,10 +60,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
-import { IArticle } from '../types/'
-import { MainApi } from '../apis/'
+import { IOrder } from '../types'
+import { MainApi } from '../apis'
 export default defineComponent({
-  name: 'ArticleDetailPage',
+  name: 'OrderDetailPage',
   props: {
      globalShare: {
       type: Object,
@@ -71,8 +71,7 @@ export default defineComponent({
     },
     id: {
       type: Number,
-      required: true,
-      default:1
+      required: true,      
     }
   },
   setup(props) {
@@ -80,20 +79,23 @@ export default defineComponent({
     const newArticleTitleElRef = ref<HTMLInputElement>();
     const newArticleBodyElRef = ref<HTMLInputElement>();
     const state = reactive({
-      article: {} as IArticle
+      Order: {} as IOrder
     });
     function loadArticle(id:number) {
       mainApi.article_detail(id)
-      .then(axiosResponse => {
-        state.article = axiosResponse.data.body.article;
+      .then(axiosResponse => {        
+        state.Order = axiosResponse.data.body.Order;        
+        
       });
     }
+
     onMounted(() => {
       loadArticle(props.id);
     });
     watch(() => props.id, (newValue, oldValue) => {
       loadArticle(props.id);
     })    
+    
     return {
       state,      
     }

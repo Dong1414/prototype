@@ -50,8 +50,8 @@
           </select> 
           </FormRow>
           <FormRow title="자격증">            
-            <input ref="certificateElRef1" class="w-1/4 rounded-sm mr-4" type="text" placeholder="자격증을 입력해주세요.">
-            <input ref="certificateElRef2" class="w-1/4 rounded-sm" type="text" placeholder="발행처">
+            <input ref="licenseElRef1" class="w-1/4 rounded-sm mr-4" type="text" placeholder="자격증을 입력해주세요.">
+            <input ref="licenseElRef2" class="w-1/4 rounded-sm" type="text" placeholder="발행처">
           </FormRow>
           <FormRow title="경력">
             <input ref="careerElRef1" class="w-1/4 rounded-sm" type="text" placeholder="2010.4">
@@ -96,11 +96,11 @@ export default defineComponent({
     const cellphoneNoElRef = ref<HTMLInputElement>();
     const emailElRef = ref<HTMLInputElement>();
     const sidoElRef = ref<HTMLInputElement>();    
-    const certificateElRef1 = ref<HTMLInputElement>();
-    const certificateElRef2 = ref<HTMLInputElement>();
+    const licenseElRef1 = ref<HTMLInputElement>();
+    const licenseElRef2 = ref<HTMLInputElement>();
     const careerElRef1 = ref<HTMLInputElement>();
     const careerElRef2 = ref<HTMLInputElement>();
-    
+    const relidElRef = 1;
 
     function checkAndJoin() {     
       // 로그인아이디 체크
@@ -192,25 +192,25 @@ export default defineComponent({
         return;
       }
       // 자격증 체크
-      if ( certificateElRef1.value == null ) {
+      if ( licenseElRef1.value == null ) {
         return;
       }
-      const certificateEl1 = certificateElRef1.value;
-      certificateEl1.value = certificateEl1.value.trim();
-      if ( certificateEl1.value.length == 0 ) {
+      const licenseEl1 = licenseElRef1.value;
+      licenseEl1.value = licenseEl1.value.trim();
+      if ( licenseEl1.value.length == 0 ) {
         alert('자격증을 입력해주세요');
-        certificateEl1.focus();
+        licenseEl1.focus();
         return;
       }
 
-      if ( certificateElRef2.value == null ) {
+      if ( licenseElRef2.value == null ) {
         return;
       }
-      const certificateEl2 = certificateElRef2.value;
-      certificateEl2.value = certificateEl2.value.trim();
-      if ( certificateEl2.value.length == 0 ) {
+      const licenseEl2 = licenseElRef2.value;
+      licenseEl2.value = licenseEl2.value.trim();
+      if ( licenseEl2.value.length == 0 ) {
         alert('발행기관을 입력해주세요');
-        certificateEl2.focus();
+        licenseEl2.focus();
         return;
       }
       
@@ -242,7 +242,7 @@ export default defineComponent({
       
       
       const startJoin = (genFileIdsStr:string) => {
-        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, cellphoneNoEl.value, emailEl.value, genFileIdsStr, sidoEl.value, certificateEl1.value, careerEl);
+        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, cellphoneNoEl.value, emailEl.value, genFileIdsStr, sidoEl.value, licenseEl1.value, careerEl);
       };
       const startFileUpload = (onSuccess:Function) => {
         if ( !!!profileImgElRef.value?.files ) {
@@ -263,8 +263,8 @@ export default defineComponent({
       };
       startFileUpload(startJoin);
     }
-    function join(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sidoEl:string, certificateEl:string, careerEl:string) {
-      mainApi.member_doExpertJoin(loginId, loginPw, name, nickname, cellphoneNo, email, genFileIdsStr, sidoEl, certificateEl, careerEl)
+    function join(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sidoEl:string, licenseEl:string, careerEl:string) {
+      mainApi.member_doExpertJoin(loginId, loginPw, name, nickname, cellphoneNo, email, genFileIdsStr, sidoEl, licenseEl, careerEl, relidElRef)
         .then(axiosResponse => {
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
@@ -284,10 +284,11 @@ export default defineComponent({
       cellphoneNoElRef,
       emailElRef,
       sidoElRef,
-      certificateElRef1,
-      certificateElRef2,      
+      licenseElRef1,
+      licenseElRef2,      
       careerElRef1,
-      careerElRef2      
+      careerElRef2,
+      relidElRef      
     }
   }
 })

@@ -55,7 +55,7 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import { IArticle } from '../types/'
+import { IOrder } from '../types/'
 import { MainApi } from '../apis/'
 export default defineComponent({
   name: 'ArticleListPage',
@@ -65,12 +65,12 @@ export default defineComponent({
     const newArticleTitleElRef = ref<HTMLInputElement>();
     const newArticleBodyElRef = ref<HTMLInputElement>();
     const state = reactive({
-      articles: [] as IArticle[]
+      articles: [] as IOrder[]
     });
     function loadArticles(boardId:number) {
       mainApi.article_list(boardId)
       .then(axiosResponse => {
-        state.articles = axiosResponse.data.body.articles;
+        state.articles = axiosResponse.data.body.Order;
       });
     }
     onMounted(() => {      
