@@ -11,6 +11,7 @@
     title:string;
     body:string;
     extra__writer:string;
+    extra__cellphoneNo:string;
   }
   
   export interface IMember extends IEntity {  

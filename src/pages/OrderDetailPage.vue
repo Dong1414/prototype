@@ -1,5 +1,5 @@
 <template>
-  <TitleBar>일정 상세</TitleBar>
+  <TitleBar>요청 상세</TitleBar>
   
   <section class="section section-member-login-form px-2">
     <div class="container mx-auto">
@@ -9,7 +9,15 @@
             <span>의뢰인</span>
           </div>
           <div class="w-auto">
-            <span>{{ state.order.body }}</span>
+            <span>{{ state.order.extra__writer }}</span>
+          </div>        
+        </div>
+        <div class="inputform">
+          <div class="wid10">
+            <span>기간</span>
+          </div>
+          <div class="w-auto">
+            <span>{{ state.order.term }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -17,7 +25,7 @@
             <span>연락처</span>
           </div>
           <div class="w-auto">
-            <span>010-1234-1234</span>
+            <span>{{ state.order.extra__cellphoneNo }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -25,7 +33,7 @@
             <span>장소</span>
           </div>
           <div class="w-auto">
-            <span>대전광역시 서구 가수원동 관저동로 158</span>
+            <span>{{ state.order.funeralHome }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -34,27 +42,13 @@
           </div>
           <div class="w-auto">
             <ul class="text-left">
-              <li>도우미 00명</li>
-              <li>음식 00</li>
-              <li>등 등 등</li>
+              <li>{{ state.order.body }}</li>              
             </ul>
           </div>
-        </div>
-        <div class="inputform">
-          <div class="wid10">
-            <span>도우미</span>
-          </div>
-          <div class="w-auto">
-            <ul class="text-left">
-              <li>김도움 <span>010-4567-7890</span></li>
-              <li>김도움 <span>010-4567-7890</span></li>
-              <li>김도움 <span>010-4567-7890</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        </div>              
     </div>
-  </section>
+  </div>
+</section>
   
 </template>
 
@@ -83,12 +77,13 @@ export default defineComponent({
     function loadArticle(id:number) {
       mainApi.article_detail(id)
       .then(axiosResponse => {        
-        state.order = axiosResponse.data.body.Order;        
+        state.order = axiosResponse.data.body.order;                                
+        
       });
     }
 
     onMounted(() => {      
-      loadArticle(props.id);      
+      loadArticle(props.id);            
     });
     watch(() => props.id, (newValue, oldValue) => {      
       loadArticle(props.id);      

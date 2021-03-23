@@ -92,9 +92,9 @@ export interface MainApi__article_list__IResponseBody extends Base__IResponseBod
 }
 
 // /usr/article/detail 의 응답 타입
-export interface MainApi__article_detail__IResponseBody extends Base__IResponseBodyType1 {
+export interface MainApi__order_detail__IResponseBody extends Base__IResponseBodyType1 {
   body:{
-    Order: IOrder
+    order: IOrder
   };
 }
 
@@ -160,7 +160,7 @@ export class MainApi extends HttpClient {
 
   // http://localhost:8021/usr/detail/id?id=? 를 요청하고 응답을 받아오는 함수
   public article_detail(id: number) {
-    return this.get<MainApi__article_detail__IResponseBody>(`/usr/order/detail?id=${id}`);  
+    return this.get<MainApi__order_detail__IResponseBody>(`/usr/order/detail?id=${id}`);  
   }
   
   public article_doWrite(boardId:number, title: string, body: string) {

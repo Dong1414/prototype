@@ -86,7 +86,7 @@ export default defineComponent({
     function loadArticle(id:number) {
       mainApi.article_detail(id)
       .then(axiosResponse => {
-        state.article = axiosResponse.data.body.Order;
+        state.article = axiosResponse.data.body.order;
       });
     }
     onMounted(() => {
