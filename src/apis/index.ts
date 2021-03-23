@@ -183,7 +183,7 @@ export class MainApi extends HttpClient {
   }
   public member_doExpertJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, license:string, career:string, relId:number) {
     return this.postByForm<MainApi__member_doExpertJoin__IResponseBody>(
-      `usr/member/doExpertJoin`, {
+      `/usr/member/doExpertJoin`, {
         loginId,
         loginPw,
         name,
