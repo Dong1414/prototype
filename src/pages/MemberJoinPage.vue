@@ -48,25 +48,26 @@
             <option value="경상북도">경상북도</option>
             <option value="경상남도">경상남도</option>
           </select> 
-          </FormRow>
+          </FormRow>          
           <FormRow title="자격증">            
             <input ref="licenseElRef1" class="w-1/4 rounded-sm mr-4" type="text" placeholder="자격증을 입력해주세요.">
             <input ref="licenseElRef2" class="w-1/4 rounded-sm" type="text" placeholder="발행처">
           </FormRow>
           <FormRow title="경력">
-            <input ref="careerElRef1" class="w-1/4 rounded-sm" type="text" placeholder="2010.4">
+            <input ref="careerElRef1" class="w-1/4 rounded-sm" type="month">            
             ~ 
-            <input ref="careerElRef2" class="w-1/4 rounded-sm" type="text" placeholder="2021.2">
+            <input ref="careerElRef2" class="w-1/4 rounded-sm" type="month">            
           </FormRow>
           <FormRow title="가입">
             <div class="btns">
               <input type="submit" value="가입" class="btn-primary" />
             </div>
-          </FormRow>
-        </form>
+          </FormRow>         
+        </form>        
         <div v-else>
           이미 로그인 되었습니다. <router-link class="btn-link" to="/">홈</router-link> 으로 이동
         </div>
+        
       </div>
     </div>
   </section>
@@ -100,8 +101,8 @@ export default defineComponent({
     const licenseElRef2 = ref<HTMLInputElement>();
     const careerElRef1 = ref<HTMLInputElement>();
     const careerElRef2 = ref<HTMLInputElement>();
-    const relidElRef = 1;
-
+    const relidElRef = 1;        
+    
     function checkAndJoin() {     
       // 로그인아이디 체크
       if ( loginIdElRef.value == null ) {
@@ -288,7 +289,7 @@ export default defineComponent({
       licenseElRef2,      
       careerElRef1,
       careerElRef2,
-      relidElRef      
+      relidElRef,      
     }
   }
 })
