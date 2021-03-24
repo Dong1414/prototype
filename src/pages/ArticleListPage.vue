@@ -68,9 +68,9 @@ export default defineComponent({
       articles: [] as IOrder[]
     });
     function loadArticles(boardId:number) {
-      mainApi.article_list(boardId)
+      mainApi.order_list(boardId)
       .then(axiosResponse => {
-        state.articles = axiosResponse.data.body.Order;
+        state.articles = axiosResponse.data.body.orders;
       });
     }
     onMounted(() => {      

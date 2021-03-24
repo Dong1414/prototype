@@ -84,14 +84,14 @@ interface Base__IResponseBodyType1 {
   success:boolean;
 }
 
-// /usr/article/list 의 응답 타입
-export interface MainApi__article_list__IResponseBody extends Base__IResponseBodyType1 {
+// /usr/order/list, /usr/caleandar/list 의 응답 타입
+export interface MainApi__order_list__IResponseBody extends Base__IResponseBodyType1 {
   body:{
-    Order: IOrder[]
+    orders: IOrder[]
   };
 }
 
-// /usr/article/detail 의 응답 타입
+// /usr/order/detail 의 응답 타입
 export interface MainApi__order_detail__IResponseBody extends Base__IResponseBodyType1 {
   body:{
     order: IOrder
@@ -121,7 +121,11 @@ export interface MainApi__common_genFile_doUpload__IResponseBody extends Base__I
     genFileIdsStr: string,
   };
 }
-
+export interface MainApi__article_accept__IResponseBody extends Base__IResponseBodyType1 {
+  body:{
+    id: number
+  };
+}
 
 // http://localhost:8021/usr/ 와의 통신장치
 export class MainApi extends HttpClient {
@@ -153,13 +157,17 @@ export class MainApi extends HttpClient {
     return axiosResponse;
   }
 
-  // http://localhost:8021/usr/article/list?boardId=? 를 요청하고 응답을 받아오는 함수
-  public article_list(boardId: number) {
-    return this.get<MainApi__article_list__IResponseBody>(`/usr/article/list?boardId=${boardId}`);
+  // http://localhost:8021/usr/article/list?directorId=? 를 요청하고 응답을 받아오는 함수 요청 리스트
+  public order_list(loginedMemberId: number) {
+    return this.get<MainApi__order_list__IResponseBody>(`/usr/order/list?directorId=${loginedMemberId}`);
+  }
+  // 일정 리스트 가져오기
+  public caleandar_list(loginedMemberId: number) {
+    return this.get<MainApi__order_list__IResponseBody>(`/usr/caleandar/list?directorId=${loginedMemberId}`);
   }
 
-  // http://localhost:8021/usr/detail/id?id=? 를 요청하고 응답을 받아오는 함수
-  public article_detail(id: number) {
+  // http://localhost:8021/usr/detail/id?id=? 를 요청하고 응답을 받아오는 함수  일정, 요청 통합 사용
+  public order_detail(id: number) {
     return this.get<MainApi__order_detail__IResponseBody>(`/usr/order/detail?id=${id}`);  
   }
   
@@ -205,4 +213,9 @@ export class MainApi extends HttpClient {
       `/common/genFile/doUpload`, formDate
     );
   }
+  //요청 수락 
+  public accept(id:number){
+    return this.get<MainApi__member_doExpertJoin__IResponseBody>(`/usr/order/accept?id=${id}`);     
+  } 
+
 } 

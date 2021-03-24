@@ -1,5 +1,5 @@
 <template>
- <TitleBar>일정 리스트</TitleBar>
+ <TitleBar>요청 리스트</TitleBar>
 <section class="section section-article-write-form px-1">
     <div class="container mx-auto">
       <div class="px-6 py-2 mb-6 bg-white rounded-lg shadow-md">
@@ -36,7 +36,7 @@
               </td>            
                <td class="px-16 py-2">
                 <span>
-                  {{ order.term }}
+                  {{ order.updateDate }}
                 </span>
               </td>
             </tr>
@@ -52,9 +52,10 @@
 import { defineComponent, reactive, getCurrentInstance, onMounted, watch } from 'vue'
 import { IOrder } from '../types'
 import { MainApi } from '../apis'
+import { Router } from 'vue-router'
 
 export default defineComponent({
-  name: 'MemberCalendarPage',
+  name: 'MemberOrderListPage',
   props: {
     globalShare: {
       type: Object,
@@ -62,13 +63,14 @@ export default defineComponent({
     },  
   },
    setup(props) {
-    const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;    
+    const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;
+    const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
     const state = reactive({
       orders: [] as IOrder[]
     });
 
     function loadArticles(loingMemberId:number) {
-      mainApi.caleandar_list(loingMemberId)
+      mainApi.order_list(loingMemberId)
       .then(axiosResponse => {
         state.orders = axiosResponse.data.body.orders;
       });

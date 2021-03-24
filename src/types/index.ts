@@ -10,6 +10,7 @@
     funeralHome:string;
     title:string;
     body:string;
+    updateDate:string;
     extra__writer:string;
     extra__cellphoneNo:string;
   }

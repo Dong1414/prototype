@@ -1,5 +1,5 @@
 <template>
-  <TitleBar>요청 페이지</TitleBar>
+  <TitleBar>일정 상세</TitleBar>
   
   <section class="section section-member-login-form px-2">
     <div class="container mx-auto">
@@ -9,7 +9,15 @@
             <span>의뢰인</span>
           </div>
           <div class="w-auto">
-            <span>asd</span>
+            <span>{{ state.order.extra__writer }}</span>
+          </div>        
+        </div>
+        <div class="inputform">
+          <div class="wid10">
+            <span>기간</span>
+          </div>
+          <div class="w-auto">
+            <span>{{ state.order.term }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -17,7 +25,7 @@
             <span>연락처</span>
           </div>
           <div class="w-auto">
-            <span>010-1234-1234</span>
+            <span>{{ state.order.extra__cellphoneNo }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -25,15 +33,7 @@
             <span>장소</span>
           </div>
           <div class="w-auto">
-            <span>asd</span>
-          </div>
-        </div>
-        <div class="inputform">
-          <div class="wid10">
-            <span>기간</span>
-          </div>
-          <div class="w-auto">
-            <span>asd</span>
+            <span>{{ state.order.funeralHome }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -42,29 +42,23 @@
           </div>
           <div class="w-auto">
             <ul class="text-left">
-              <li>asd</li>
-              <li>음식 00</li>
-              <li>등 등 등</li>
+              <li>{{ state.order.body }}</li>              
             </ul>
-          </div>
-        </div>       
-        <div class="btns text-center">
-          <router-link :to="'/accept' " class="btn-primary">수락</router-link>
-          <input v:on="submit" value="수락" class="btn-primary" />
-          <input v:on="submit" value="거절" class="btn-primary" />
+          </div>                        
         </div>
       </div>
     </div>
   </section>
-  
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
 import { IOrder } from '../types'
 import { MainApi } from '../apis'
+import { Router } from 'vue-router'
+
 export default defineComponent({
-  name: 'ArticleDetailPage',
+  name: 'CaleandarDetailPage',
   props: {
      globalShare: {
       type: Object,
@@ -72,31 +66,41 @@ export default defineComponent({
     },
     id: {
       type: Number,
-      required: true,
-      default:1
+      required: true,      
     }
   },
   setup(props) {
-    const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;
-    const newArticleTitleElRef = ref<HTMLInputElement>();
-    const newArticleBodyElRef = ref<HTMLInputElement>();
+    const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
+    const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;        
     const state = reactive({
-      article: {} as IOrder
+      order: {} as IOrder
     });
     function loadArticle(id:number) {
-      mainApi.article_detail(id)
-      .then(axiosResponse => {
-        state.article = axiosResponse.data.body.order;
+      mainApi.order_detail(id)
+      .then(axiosResponse => {        
+        state.order = axiosResponse.data.body.order;                                
+        
       });
     }
-    onMounted(() => {
-      loadArticle(props.id);
-    });
-    watch(() => props.id, (newValue, oldValue) => {
-      loadArticle(props.id);
+
+    onMounted(() => {      
+      loadArticle(props.id);            
+    })
+    watch(() => props.id, (newValue, oldValue) => {      
+      loadArticle(props.id);      
     })    
+    
+    function acceptOrder() {
+      const yesOrNo = confirm('요청을 수락 하시겠습니까?').valueOf()
+
+      if(yesOrNo == false){
+        return;
+      }
+    }
+      
     return {
-      state,      
+      state,
+      acceptOrder
     }
   }
 })
@@ -104,6 +108,7 @@ export default defineComponent({
 
 <style scoped>
 .wid10{
+
   width: 10%;
 }
 .inputform{

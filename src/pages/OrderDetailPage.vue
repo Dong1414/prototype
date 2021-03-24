@@ -45,10 +45,15 @@
               <li>{{ state.order.body }}</li>              
             </ul>
           </div>
-        </div>              
+        </div>    
+          <div>
+            <form v-on:submit.prevent="acceptOrder">           
+              <input type="submit" value="수락" class="btn-primary" />
+            </form>
+          </div>                  
+      </div>
     </div>
-  </div>
-</section>
+  </section>
   
 </template>
 
@@ -56,6 +61,7 @@
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
 import { IOrder } from '../types'
 import { MainApi } from '../apis'
+import { Router } from 'vue-router'
 
 export default defineComponent({
   name: 'OrderDetailPage',
@@ -70,12 +76,13 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;        
     const state = reactive({
       order: {} as IOrder
     });
     function loadArticle(id:number) {
-      mainApi.article_detail(id)
+      mainApi.order_detail(id)
       .then(axiosResponse => {        
         state.order = axiosResponse.data.body.order;                                
         
@@ -84,13 +91,34 @@ export default defineComponent({
 
     onMounted(() => {      
       loadArticle(props.id);            
-    });
+    })
     watch(() => props.id, (newValue, oldValue) => {      
       loadArticle(props.id);      
     })    
     
+    function acceptOrder() {
+      const yesOrNo = confirm('요청을 수락 하시겠습니까?').valueOf()
+
+      if(yesOrNo == false){
+        return;
+      }
+      accept(state.order.id);
+    }
+
+    function accept(id:number){
+      mainApi.accept(id)
+        .then(axiosResponse => {
+          alert(axiosResponse.data.msg);
+          if ( axiosResponse.data.fail ) {
+            return;
+          }
+          const newArticleId = axiosResponse.data.body.id;
+          router.replace("../accept?id=" + newArticleId);
+        })   
+    }        
     return {
-      state      
+      state,
+      acceptOrder
     }
   }
 })
@@ -98,6 +126,7 @@ export default defineComponent({
 
 <style scoped>
 .wid10{
+
   width: 10%;
 }
 .inputform{

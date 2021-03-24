@@ -14,14 +14,12 @@ import FormRow from './components/FormRow.vue';
 
 // 페이지 불러오기
 import HomeMainPage from'./pages/HomeMainPage.vue'
-import ArticleListPage from'./pages/ArticleListPage.vue'
-import ArticleWritePage from './pages/ArticleWritePage.vue'
 import OrderDetailPage from './pages/OrderDetailPage.vue'
-import ArticleRequestPage  from './pages/ArticleRequestPage.vue'
+import CaleandarDetailPage  from './pages/CaleandarDetailPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
 import MemberJoinPage from './pages/MemberJoinPage.vue'
 import MemberCalendarPage  from './pages/MemberCalendarPage.vue'
-import MemberRequestListPage  from './pages/MemberRequestListPage.vue'
+import MemberOrderListPage  from './pages/MemberOrderListPage.vue'
 import AcceptPage  from './pages/AcceptPage.vue'
 
 
@@ -68,20 +66,30 @@ const routes = [
         props: (route:any) => ({ globalShare })
       },
       {
-        path: '/article/list',
-        component: ArticleListPage,
-        props: (route:any) => ({ boardId: Util.toIntOrUnd(route.query.boardId), globalShare })
-      },
+        path: '/order/list',
+        component: MemberOrderListPage,
+        props: (route:any) => ({ globalShare })
+      },      
       {
         path: '/order/detail',
         component: OrderDetailPage,
         props: (route:any) => ({ id: Util.toIntOrUnd(route.query.id), globalShare })
       },
       {
-        path: '/article/write',
-        component: ArticleWritePage,
-        props: (route:any) => ({ boardId: Util.toIntOrUnd(route.query.boardId), globalShare })
+        path: '/accept',
+        component: AcceptPage,
+        props: (route:any) => ({ id: Util.toIntOrUnd(route.query.id), globalShare })
+      },      
+      {
+        path: '/calendar/list',
+        component: MemberCalendarPage,
+        props: (route:any) => ({ globalShare })
       },
+      {
+        path: '/calendar/detail',
+        component: CaleandarDetailPage,
+        props: (route:any) => ({ id: Util.toIntOrUnd(route.query.id), globalShare })
+      },          
       {
         path: '/member/login',
         component: MemberLoginPage,
@@ -92,26 +100,8 @@ const routes = [
         component: MemberJoinPage,
         props: (route:any) => ({ globalShare })
       },
-      {
-        path: '/member/calendar',
-        component: MemberCalendarPage,
-        props: (route:any) => ({ globalShare })
-      },
-      {
-        path: '/member/requestList',
-        component: MemberRequestListPage,
-        props: (route:any) => ({ globalShare })
-      },
-      {
-        path: '/article/request',
-        component: ArticleRequestPage,
-        props: (route:any) => ({ globalShare })
-      },
-      {
-        path: '/accept',
-        component: AcceptPage,
-        props: (route:any) => ({ globalShare })
-      },
+      
+      
 
       
 ];
