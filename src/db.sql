@@ -421,3 +421,49 @@ helperOrder{
 
 
 
+package test;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Main {
+	public static void main(String[] args) throws ParseException {
+		
+		
+		
+		String inputStartDate = "2017-02-28";
+		String inputEndDate = "2017-03-05";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date startDate = sdf.parse(inputStartDate);
+		
+		Date endDate = sdf.parse(inputEndDate);
+		
+		ArrayList<String> dates = new ArrayList<String>();
+		
+		Date currentDate = startDate;
+		
+		while (currentDate.compareTo(endDate) <= 0) {
+		
+			dates.add(sdf.format(currentDate));
+			
+			Calendar c = Calendar.getInstance();
+			
+			c.setTime(currentDate);
+			
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			
+			currentDate = c.getTime();
+		}
+		
+		for (String date : dates) {
+			System.out.println(date);
+		}
+	}
+}
+
