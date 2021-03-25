@@ -391,3 +391,33 @@ AND A.directorId = 1
 AND A.stepLevel = 2;
 ORDER BY A.id DESC
 LIMIT 0, 20
+
+ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+helper{
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	loginId CHAR(30) NOT NULL,
+	loginPw VARCHAR(100) NOT NULL,   
+	authKey CHAR(80) NOT NULL UNIQUE,	
+	??acknowledgment_stap SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=가입대기 2=가입승인 3=가입실패)',
+	`name` CHAR(30) NOT NULL,	
+	`email` CHAR(100) NOT NULL,
+	`cellphoneNo` CHAR(20) NOT NULL,
+	`sido` CHAR(100) NOT NULL,  #활동지역	
+	`career` CHAR(100) NOT NULL #경력
+};
+
+helperOrder{
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,    
+    title CHAR(200) NOT NULL,       
+    `orderId` INT(10) UNSIGNED NOT NULL, #신청한 장례식 ID
+    `directorId` INT(10) UNSIGNED NOT NULL, #전문가ID
+    stepLevel SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=의뢰요청,2=의뢰승인)'
+};
+
+
+
