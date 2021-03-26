@@ -17,13 +17,14 @@
   
   export interface IMember extends IEntity {  
     loginId:string;
+    loginPw:string;
     authLevel:number;
     name:string;
     nickname:string;
     cellphoneNo:string;
     email:string;
     sido:string;
-		certificate:string;
+		license:string;
 		career:string;
     extra__thumbImg:string;
   }

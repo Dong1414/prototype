@@ -116,6 +116,11 @@ export interface MainApi__member_doExpertJoin__IResponseBody extends Base__IResp
     id: number,
   };
 }
+export interface MainApi__member_detail__IResponseBody extends Base__IResponseBodyType1 {
+  body:{
+    member: IMember
+  };
+}
 export interface MainApi__common_genFile_doUpload__IResponseBody extends Base__IResponseBodyType1 {
   body:{
     genFileIdsStr: string,
@@ -206,6 +211,13 @@ export class MainApi extends HttpClient {
       }
     );
   }  
+
+  
+  public member_detail(id:number) {
+    return this.get<MainApi__member_detail__IResponseBody>(`/usr/member/detail?id=${id}`);
+  }  
+
+
   public common_genFile_doUpload(profileImg:File) {
     const formDate = new FormData();
     formDate.append("file__member__0__common__attachment__1", profileImg);

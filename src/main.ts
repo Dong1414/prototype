@@ -18,6 +18,7 @@ import OrderDetailPage from './pages/OrderDetailPage.vue'
 import CaleandarDetailPage  from './pages/CaleandarDetailPage.vue'
 import MemberLoginPage from './pages/MemberLoginPage.vue'
 import MemberJoinPage from './pages/MemberJoinPage.vue'
+import MemberDetailPage from './pages/MemberDetailPage.vue'
 import MemberCalendarPage  from './pages/MemberCalendarPage.vue'
 import MemberOrderListPage  from './pages/MemberOrderListPage.vue'
 import AcceptPage  from './pages/AcceptPage.vue'
@@ -100,7 +101,11 @@ const routes = [
         component: MemberJoinPage,
         props: (route:any) => ({ globalShare })
       },
-      
+      {
+        path: '/member/detail',
+        component: MemberDetailPage,
+        props: (route:any) => ({ globalShare })
+      },
       
 
       

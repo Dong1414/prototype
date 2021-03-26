@@ -391,3 +391,80 @@ AND A.directorId = 1
 AND A.stepLevel = 2;
 ORDER BY A.id DESC
 LIMIT 0, 20
+
+ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+helper{
+	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	regDate DATETIME NOT NULL,
+	updateDate DATETIME NOT NULL,
+	loginId CHAR(30) NOT NULL,
+	loginPw VARCHAR(100) NOT NULL,   
+	authKey CHAR(80) NOT NULL UNIQUE,	
+	??acknowledgment_stap SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=가입대기 2=가입승인 3=가입실패)',
+	`name` CHAR(30) NOT NULL,	
+	`email` CHAR(100) NOT NULL,
+	`cellphoneNo` CHAR(20) NOT NULL,
+	`sido` CHAR(100) NOT NULL,  #활동지역	
+	`career` CHAR(100) NOT NULL #경력
+};
+
+helperOrder{
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,    
+    title CHAR(200) NOT NULL,       
+    `orderId` INT(10) UNSIGNED NOT NULL, #신청한 장례식 ID
+    `directorId` INT(10) UNSIGNED NOT NULL, #전문가ID
+    stepLevel SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=의뢰요청,2=의뢰승인)'
+};
+
+
+
+package test;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Main {
+	public static void main(String[] args) throws ParseException {
+		
+		
+		
+		String inputStartDate = "2017-02-28";
+		String inputEndDate = "2017-03-05";
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Date startDate = sdf.parse(inputStartDate);
+		
+		Date endDate = sdf.parse(inputEndDate);
+		
+		ArrayList<String> dates = new ArrayList<String>();
+		
+		Date currentDate = startDate;
+		
+		while (currentDate.compareTo(endDate) <= 0) {
+		
+			dates.add(sdf.format(currentDate));
+			
+			Calendar c = Calendar.getInstance();
+			
+			c.setTime(currentDate);
+			
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			
+			currentDate = c.getTime();
+		}
+		
+		for (String date : dates) {
+			System.out.println(date);
+		}
+	}
+}
+
+#설명 https://kkikkodev.tistory.com/481 

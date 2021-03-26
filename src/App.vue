@@ -18,6 +18,11 @@
               HOME
             </router-link>
           </li>
+          <li v-if="globalShare.isLogined">
+            <router-link to="/member/detail" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
+              {{ globalShare.loginedMember.name }}님
+            </router-link>
+          </li>
           <li v-if="globalShare.isLogined == false">
             <router-link to="/member/login" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               로그인
@@ -42,22 +47,7 @@
                <router-link to="/calendar/list" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               일정
             </router-link>
-          </li>
-          <li v-if="globalShare.isLogined">
-               <router-link to="/article/write" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
-              글 작성
-            </router-link>
           </li>          
-          <li>
-            <router-link to="/article/list?boardId=1" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
-              공지사항 리스트
-            </router-link>
-          </li>
-          <li>
-             <router-link to="/article/list?boardId=2" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
-              자유 리스트
-            </router-link>
-          </li>
         </ul>
       </nav>
     </div>
