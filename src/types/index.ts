@@ -14,6 +14,17 @@
     extra__writer:string;
     extra__cellphoneNo:string;
   }
+
+  export interface IHelperOrder extends IEntity {      
+    directorId:number;
+    orderId:number;
+    term:string;
+    funeralHome:string;
+    title:string;    
+    updateDate:string;
+    extra__writer:string;
+    extra__cellphoneNo:string;
+  }
   
   export interface IMember extends IEntity {  
     loginId:string;

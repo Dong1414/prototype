@@ -27,7 +27,7 @@
           
             <tr class="bg-white border-4 border-gray-200 text-center" v-bind:key="order.id" v-for="order in state.orders">            
               <td>            
-                <router-link :to="'detail?id=' + order.id" class="px-16 py-2 ">{{ order.extra__writer }}</router-link>
+                <router-link :to="'../accept?id=' + order.id" class="px-16 py-2 ">{{ order.extra__writer }}</router-link>
               </td>
               <td class="px-16 py-2">
                 <span>

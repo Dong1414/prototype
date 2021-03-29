@@ -12,7 +12,7 @@
       </router-link>
 
       <nav class="header-bar__menu-box-1  overflow-x-auto ml-2">
-        <ul class="flex h-full">
+        <ul class="flex h-full">           
           <li>
               <router-link to="/" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               HOME
@@ -25,12 +25,17 @@
           </li>
           <li v-if="globalShare.isLogined == false">
             <router-link to="/member/login" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
-              로그인
+              전문가 로그인
             </router-link>
-          </li>
+          </li>          
           <li v-if="globalShare.isLogined == false">
             <router-link to="/member/join" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
               장례지도사 회원가입
+            </router-link>
+          </li>
+          <li v-if="globalShare.isLogined == false">
+            <router-link to="/member/helperJoin" class="h-full flex items-center font-bold px-4 hover:bg-white hover:text-black whitespace-nowrap">
+              도우미 회원가입
             </router-link>
           </li>
           <li v-if="globalShare.isLogined">

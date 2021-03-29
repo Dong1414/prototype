@@ -70,51 +70,21 @@
           </tr>
         </thead>
         <tbody class="bg-gray-200">
-          <tr class="bg-white border-4 border-gray-200 text-center">            
-            <td>            
-              <router-link :to="'/article/detail?id=1' " class="px-16 py-2 ">도우미1</router-link>
-            </td>
-            <td class="px-16 py-2">
-              <span>
-                대전
-              </span>
-            </td>            
-            <td class="px-16 py-2">
-              <span>
-                <input type="submit" value="신청하기" class="btn-primary" />
-              </span>
-            </td>
-          </tr>
-          <tr class="bg-white border-4 border-gray-200 text-center">            
-            <td>
-              <router-link :to="'/article/detail?id=1' " class="px-16 py-2 ">도우미2</router-link>
-            </td>
-            <td class="px-16 py-2">
-              <span>
-                대전
-              </span>
-            </td>            
-            <td class="px-16 py-2">
-              <span>
-                <input type="submit" value="신청하기" class="btn-primary" />
-              </span>
-            </td>
-          </tr>
-          <tr class="bg-white border-4 border-gray-200 text-center">            
-            <td>
-              <router-link :to="'/article/detail?id=1' " class="px-16 py-2 ">도우미3</router-link>
-            </td>
-            <td class="px-16 py-2">
-              <span>
-                대전
-              </span>
-            </td>            
-            <td class="px-16 py-2">
-              <span>
-                <input type="submit" value="신청하기" class="btn-primary" />
-              </span>
-            </td>
-          </tr>
+          <tr class="bg-white border-4 border-gray-200 text-center" v-bind:key="heperOrder.id" v-for="heperOrder in state.heperOrders">            
+              <td>            
+                <router-link :to="'detail?id=' + heperOrder.id" class="px-16 py-2 ">{{ heperOrder.extra__writer }}</router-link>
+              </td>
+              <td class="px-16 py-2">
+                <span>
+                  {{ heperOrder.title  }}
+                </span>
+              </td>            
+               <td class="px-16 py-2">
+                <span>
+                  {{ heperOrder.term }}
+                </span>
+              </td>
+            </tr>
         </tbody>        
       </table>
           </div>
@@ -128,7 +98,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
-import { IOrder } from '../types'
+import { IOrder, IHelperOrder } from '../types'
 import { MainApi } from '../apis'
 import { Router } from 'vue-router'
 
@@ -151,6 +121,11 @@ export default defineComponent({
     const state = reactive({
       order: {} as IOrder
     });
+
+    const states = reactive({
+      helperOrder: {} as IHelperOrder
+    });
+
     function loadArticle(id:number) {
       mainApi.order_detail(id)
       .then(axiosResponse => {        

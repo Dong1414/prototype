@@ -22,6 +22,8 @@ import MemberDetailPage from './pages/MemberDetailPage.vue'
 import MemberCalendarPage  from './pages/MemberCalendarPage.vue'
 import MemberOrderListPage  from './pages/MemberOrderListPage.vue'
 import AcceptPage  from './pages/AcceptPage.vue'
+import MemberHelperJoinPage  from './pages/MemberHelperJoinPage.vue'
+
 
 
 
@@ -106,6 +108,12 @@ const routes = [
         component: MemberDetailPage,
         props: (route:any) => ({ globalShare })
       },
+      {
+        path: '/member/helperJoin',
+        component: MemberHelperJoinPage,
+        props: (route:any) => ({ globalShare })
+      }
+      
       
 
       

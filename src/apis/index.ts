@@ -175,6 +175,10 @@ export class MainApi extends HttpClient {
   public order_detail(id: number) {
     return this.get<MainApi__order_detail__IResponseBody>(`/usr/order/detail?id=${id}`);  
   }
+
+  public helperOrders(id: number) {
+    return this.get<MainApi__order_detail__IResponseBody>(`/usr/helperOrder/list?id=${id}`);  
+  }
   
   public article_doWrite(boardId:number, title: string, body: string) {
     return this.postByForm<MainApi__article_doWrite__IResponseBody>(
@@ -229,5 +233,22 @@ export class MainApi extends HttpClient {
   public accept(id:number){
     return this.get<MainApi__member_doExpertJoin__IResponseBody>(`/usr/order/accept?id=${id}`);     
   } 
+
+
+
+  public member_doHelperJoin(loginId:string, loginPw:string, name:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, career:string) {
+    return this.postByForm<MainApi__member_doExpertJoin__IResponseBody>(
+      `/usr/member/doHelperJoin`, {
+        loginId,
+        loginPw,
+        name,        
+        cellphoneNo,
+        email,
+        genFileIdsStr,
+        sido,        
+        career,
+      }
+    );
+  }  
 
 } 
