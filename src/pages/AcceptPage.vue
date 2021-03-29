@@ -134,11 +134,21 @@ export default defineComponent({
       });
     }
 
+    function loadHelperOrder(id:number) {
+      mainApi.helperOrders(id)
+      .then(axiosResponse => {        
+        states.helperOrder = axiosResponse.data.body.helperOrder;                                
+        
+      });
+    }
+
     onMounted(() => {      
-      loadArticle(props.id);            
+      loadArticle(props.id);
+      loadHelperOrder(props.id);            
     })
     watch(() => props.id, (newValue, oldValue) => {      
       loadArticle(props.id);      
+      loadHelperOrder(props.id);
     })    
         
     return {

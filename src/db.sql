@@ -368,56 +368,83 @@ CREATE TABLE genFile (
 
 );
 
-SELECT A.*,
-IFNULL(C.nickname, "탈퇴회원") AS extra__writer
-FROM `order` AS A
-LEFT JOIN `expert` AS M
-ON A.directorId = M.id
-LEFT JOIN `client` AS C
-ON A.clientId = C.id
-WHERE A.directorId = 1
-AND A.stepLevel = 1;
 
-
-SELECT A.*,
-IFNULL(C.name, "탈퇴") AS extra__writer		
-FROM `order` AS A
-LEFT JOIN `expert` AS M
-ON A.directorId = M.id		
-LEFT JOIN `client` AS C
-ON A.clientId = C.id
-WHERE 1
-AND A.directorId = 1
-AND A.stepLevel = 2;
-ORDER BY A.id DESC
-LIMIT 0, 20
-
-ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-helper{
+CREATE TABLE helper(
 	id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	regDate DATETIME NOT NULL,
 	updateDate DATETIME NOT NULL,
 	loginId CHAR(30) NOT NULL,
 	loginPw VARCHAR(100) NOT NULL,   
-	authKey CHAR(80) NOT NULL UNIQUE,	
-	??acknowledgment_stap SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=가입대기 2=가입승인 3=가입실패)',
+	authKey CHAR(80) NOT NULL UNIQUE,		
 	`name` CHAR(30) NOT NULL,	
 	`email` CHAR(100) NOT NULL,
 	`cellphoneNo` CHAR(20) NOT NULL,
 	`sido` CHAR(100) NOT NULL,  #활동지역	
 	`career` CHAR(100) NOT NULL #경력
-};
+);
 
-helperOrder{
+CREATE TABLE helperOrder(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,    
     title CHAR(200) NOT NULL,       
+    funeralHome CHAR(200) NOT NULL,
     `orderId` INT(10) UNSIGNED NOT NULL, #신청한 장례식 ID
     `directorId` INT(10) UNSIGNED NOT NULL, #전문가ID
     stepLevel SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=의뢰요청,2=의뢰승인)'
-};
+);
+
+INSERT INTO `helperOrder`
+SET regDate = NOW(),
+
+    updateDate = NOW(),
+
+    title = 'user2님 의뢰',    
+
+    funeralHome = '대전장례식장',    
+
+    `directorId` = 1,
+
+    `orderId` = 1,
+    
+    stepLevel = 1;
+    
+
+INSERT INTO `helperOrder`
+SET regDate = NOW(),
+
+    updateDate = NOW(),
+
+    title = 'user3님 의뢰',    
+
+    funeralHome = '대전장례식장',    
+
+    `directorId` = 1,
+
+    `orderId` = 1,
+    
+    stepLevel = 1;
+
+
+INSERT INTO `helperOrder`
+SET regDate = NOW(),
+
+    updateDate = NOW(),
+
+    title = 'user2님 의뢰',    
+
+    funeralHome = '대전장례식장',    
+
+    `directorId` = 1,
+
+    `orderId` = 2,
+    
+    stepLevel = 1;
+
+SELECT * FROM helper;
+
+
+ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
 

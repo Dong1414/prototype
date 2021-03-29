@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import {IOrder, IMember} from '../types'
+import {IOrder, IMember, IHelperOrder} from '../types'
 
 // API 원형
 abstract class HttpClient {
@@ -90,7 +90,11 @@ export interface MainApi__order_list__IResponseBody extends Base__IResponseBodyT
     orders: IOrder[]
   };
 }
-
+export interface MainApi__helperOrder_list__IResponseBody extends Base__IResponseBodyType1 {
+  body:{
+    helperOrder: IHelperOrder[]
+  };
+}
 // /usr/order/detail 의 응답 타입
 export interface MainApi__order_detail__IResponseBody extends Base__IResponseBodyType1 {
   body:{
@@ -177,7 +181,7 @@ export class MainApi extends HttpClient {
   }
 
   public helperOrders(id: number) {
-    return this.get<MainApi__order_detail__IResponseBody>(`/usr/helperOrder/list?id=${id}`);  
+    return this.get<MainApi__helperOrder_list__IResponseBody>(`/usr/helperOrder/list?id=${id}`);  
   }
   
   public article_doWrite(boardId:number, title: string, body: string) {
