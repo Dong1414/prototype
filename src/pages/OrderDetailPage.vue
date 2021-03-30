@@ -115,7 +115,8 @@ export default defineComponent({
           const newArticleId = axiosResponse.data.body.id;
           router.replace("../accept?id=" + newArticleId);
         })   
-    }        
+    }
+    
     return {
       state,
       acceptOrder

@@ -65,26 +65,35 @@
               <span class="text-gray-300">활동지역</span>
             </th>
             <th class="px-16 py-2">
+              <span class="text-gray-300">경력</span>
+            </th>
+            <th class="px-16 py-2">
               <span class="text-gray-300">신청</span>
             </th>
           </tr>
         </thead>
         <tbody class="bg-gray-200">
-          <tr class="bg-white border-4 border-gray-200 text-center" v-bind:key="heperOrder.id" v-for="heperOrder in state.heperOrders">            
-              <td>            
-                <router-link :to="'detail?id=' + heperOrder.id" class="px-16 py-2 ">{{ heperOrder.extra__writer }}</router-link>
+          <tr class="bg-white border-4 border-gray-200 text-center" v-bind:key="helperOrder.id" v-for="helperOrder in state.helperOrders">            
+              <td class="px-16 py-2">
+                <span>{{ helperOrder.extra__writer }}</span>
               </td>
               <td class="px-16 py-2">
                 <span>
-                  {{ heperOrder.title  }}
+                  {{ helperOrder.sido }}                                   
                 </span>
               </td>            
                <td class="px-16 py-2">
                 <span>
-                  {{ heperOrder.term }}
+                  {{ helperOrder.career }} 
                 </span>
               </td>
-            </tr>
+              <td class="px-16 py-2">
+                <form v-on:submit.prevent="acceptOrder">           
+                  <input type="submit" value="수락" class="btn-primary" />
+                  <div style="display:none" ref = "helperIdElRef">{{ helperOrder.id }} </div>
+                </form>
+              </td>
+            </tr>                                 
         </tbody>        
       </table>
           </div>
@@ -119,12 +128,11 @@ export default defineComponent({
     const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;        
     const state = reactive({
-      order: {} as IOrder
+      order: {} as IOrder,      
+      helperOrders: [] as IHelperOrder[]
     });
 
-    const states = reactive({
-      helperOrder: {} as IHelperOrder
-    });
+   
 
     function loadArticle(id:number) {
       mainApi.order_detail(id)
@@ -137,9 +145,32 @@ export default defineComponent({
     function loadHelperOrder(id:number) {
       mainApi.helperOrders(id)
       .then(axiosResponse => {        
-        states.helperOrder = axiosResponse.data.body.helperOrder;                                
+        state.helperOrders = axiosResponse.data.body.helperOrders;                                
         
-      });
+      });  
+    }
+
+     function acceptOrder() {
+      const yesOrNo = confirm('요청을 수락 하시겠습니까?').valueOf()
+
+      if(yesOrNo == false){
+        return;
+      }
+      const helperIdElRef = ref();
+
+      acceptHelperOrder(helperIdElRef.value);
+    }
+
+    function acceptHelperOrder(id:number){
+      mainApi.acceptHelperOrder(id)
+        .then(axiosResponse => {
+          alert(axiosResponse.data.msg);
+          if ( axiosResponse.data.fail ) {
+            return;
+          }
+          const newArticleId = axiosResponse.data.body.id;
+          router.replace("../accept?id=" + newArticleId);
+        })   
     }
 
     onMounted(() => {      
@@ -152,7 +183,8 @@ export default defineComponent({
     })    
         
     return {
-      state,    
+      acceptOrder,
+      state            
     }
   }
 })

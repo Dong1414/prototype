@@ -92,7 +92,7 @@ export interface MainApi__order_list__IResponseBody extends Base__IResponseBodyT
 }
 export interface MainApi__helperOrder_list__IResponseBody extends Base__IResponseBodyType1 {
   body:{
-    helperOrder: IHelperOrder[]
+    helperOrders: IHelperOrder[]
   };
 }
 // /usr/order/detail 의 응답 타입
@@ -237,7 +237,11 @@ export class MainApi extends HttpClient {
   public accept(id:number){
     return this.get<MainApi__member_doExpertJoin__IResponseBody>(`/usr/order/accept?id=${id}`);     
   } 
-
+  
+  public acceptHelperOrder(id:number){
+    return this.get<MainApi__member_doExpertJoin__IResponseBody>(`/usr/helperOrder/accept?id=${id}`);     
+  } 
+  
 
 
   public member_doHelperJoin(loginId:string, loginPw:string, name:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, career:string) {

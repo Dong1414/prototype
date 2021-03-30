@@ -16,15 +16,18 @@
   }
 
   export interface IHelperOrder extends IEntity {      
+    id:number;
     directorId:number;
     orderId:number;
+    helperId:number;
     term:string;
     funeralHome:string;
     title:string;    
     updateDate:string;
     extra__writer:string;
-    extra__cellphoneNo:string;
+    extra__cellphoneNo:string;    
   }
+
   
   export interface IMember extends IEntity {  
     loginId:string;
