@@ -29,10 +29,10 @@ CREATE TABLE `order` (
     `directorId` INT(10) UNSIGNED NOT NULL, #전문가 ID
 
     `clientId` INT(10) UNSIGNED NOT NULL, #고객ID
-
+    
     stepLevel SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=의뢰요청(의뢰검토),2=의뢰승인(장례준비),3=장례진행중,4=장례종료(결제미완료),5=결제완료)'
 
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 # 테스트 의뢰 생성
 INSERT INTO `order`
@@ -107,7 +107,7 @@ CREATE TABLE `expert` (
 
     `career` CHAR(100) NOT NULL #경력
 
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
 INSERT INTO `expert`
@@ -155,7 +155,7 @@ CREATE TABLE article (
 
     expertId INT(10) NOT NULL
 
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
 
  CREATE TABLE `client` ( 
      id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT, 
@@ -170,7 +170,7 @@ CREATE TABLE article (
      `email` CHAR(100) NOT NULL, 
      `cellphoneNo` CHAR(20) NOT NULL, 
      `address` CHAR(100) NOT NULL 
- ); 
+ )ENGINE=INNODB DEFAULT CHARSET=utf8; 
 
 
 # 로그인 ID로 검색했을 때 
@@ -366,7 +366,7 @@ CREATE TABLE genFile (
 
   KEY relId (relId,relTypeCode,typeCode,type2Code,fileNo)
 
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE helper(
@@ -381,33 +381,37 @@ CREATE TABLE helper(
 	`cellphoneNo` CHAR(20) NOT NULL,
 	`sido` CHAR(100) NOT NULL,  #활동지역	
 	`career` CHAR(100) NOT NULL #경력
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 CREATE TABLE helperOrder(
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
-    updateDate DATETIME NOT NULL,    
-    title CHAR(200) NOT NULL,       
-    funeralHome CHAR(200) NOT NULL,
-    `orderId` INT(10) UNSIGNED NOT NULL, #신청한 장례식 ID
-    `directorId` INT(10) UNSIGNED NOT NULL, #전문가ID
+    updateDate DATETIME NOT NULL,            
+    `orderId` INT(10) UNSIGNED NOT NULL, #신청한 장례식 ID    
+    `helperId` INT(10) UNSIGNED NOT NULL, #신청자(도우미)Id
+    `name` CHAR(200) NOT NULL,
+    `career` CHAR(200) NOT NULL,
+    `sido` CHAR(200) NOT NULL,
     stepLevel SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=의뢰요청,2=의뢰승인)'
-);
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+
+
 
 INSERT INTO `helperOrder`
 SET regDate = NOW(),
 
     updateDate = NOW(),
 
-    title = 'user2님 의뢰',    
-
-    funeralHome = '대전장례식장',    
-
-    `directorId` = 1,
+    career = '2년',       
 
     `orderId` = 1,
     
-    stepLevel = 1;
+    helperId = 1,
+    
+    stepLevel = 1,
+    `name` = '김도움',
+    sido = '대전광역시';
     
 
 INSERT INTO `helperOrder`
@@ -415,15 +419,15 @@ SET regDate = NOW(),
 
     updateDate = NOW(),
 
-    title = 'user3님 의뢰',    
-
-    funeralHome = '대전장례식장',    
-
-    `directorId` = 1,
+    career = '3년',     
 
     `orderId` = 1,
     
-    stepLevel = 1;
+    helperId = 1,
+    
+    stepLevel = 1,
+    `name` = '김도움',
+    sido = '대전광역시';
 
 
 INSERT INTO `helperOrder`
@@ -431,17 +435,27 @@ SET regDate = NOW(),
 
     updateDate = NOW(),
 
-    title = 'user2님 의뢰',    
-
-    funeralHome = '대전장례식장',    
-
-    `directorId` = 1,
+    career = '4년',    
 
     `orderId` = 2,
     
-    stepLevel = 1;
+    helperId = 1,
+    
+    stepLevel = 1,
+    `name` = '김도움',
+    sido = '대전광역시';
 
 SELECT * FROM helper;
+
+SELECT A.*,
+IFNULL(A.name, "탈퇴") AS extra__writer		
+FROM `HelperOrder` AS A	
+LEFT JOIN `order` AS C
+ON A.orderId = 1
+WHERE 1
+
+
+
 
 
 ENGINE=INNODB DEFAULT CHARSET=utf8;
