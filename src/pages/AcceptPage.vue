@@ -47,7 +47,17 @@
               <li>{{ state.order.body }}</li>              
             </ul>
           </div>
-        </div>        
+        </div>  
+        <div class="inputform">
+          <div class="wid10">
+            <span>도우미</span>
+          </div>
+          <div class="w-auto">
+            <ul class="text-left">
+              <li>{{ state.order.helperName }}</li>              
+            </ul>
+          </div>
+        </div>             
         <div class="pb-6">
           <div class="flex">
             <router-link :to="'/calendar/list' " class="btn-primary">일정 확인하기</router-link>          
@@ -73,6 +83,7 @@
           </tr>
         </thead>
         <tbody class="bg-gray-200">
+          
           <tr class="bg-white border-4 border-gray-200 text-center" v-bind:key="helperOrder.id" v-for="helperOrder in state.helperOrders">            
               <td class="px-16 py-2">
                 <span>{{ helperOrder.extra__writer }}</span>
@@ -88,9 +99,8 @@
                 </span>
               </td>
               <td class="px-16 py-2">
-                <form v-on:submit.prevent="acceptOrder">           
-                  <input type="submit" value="수락" class="btn-primary" />
-                  <div style="display:none" ref = "helperIdElRef">{{ helperOrder.id }} </div>
+                <form v-on:submit.prevent="acceptOrder(helperOrder.id)">                                                         
+                  <input type="submit"  value="수락" class="btn-primary" />                  
                 </form>
               </td>
             </tr>                                 
@@ -111,7 +121,6 @@ import { IOrder, IHelperOrder } from '../types'
 import { MainApi } from '../apis'
 import { Router } from 'vue-router'
 
-
 export default defineComponent({
   name: 'AcceptPage',
   props: {
@@ -129,9 +138,12 @@ export default defineComponent({
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;        
     const state = reactive({
       order: {} as IOrder,      
-      helperOrders: [] as IHelperOrder[]
-    });
+      helperOrders: [] as IHelperOrder[],
+      id: Number
+    });    
+    const idRef = ref(null)
 
+    
    
 
     function loadArticle(id:number) {
@@ -150,15 +162,13 @@ export default defineComponent({
       });  
     }
 
-     function acceptOrder() {
+     function acceptOrder(id:number){
       const yesOrNo = confirm('요청을 수락 하시겠습니까?').valueOf()
 
       if(yesOrNo == false){
         return;
-      }
-      const helperIdElRef = ref();
-      alert(helperIdElRef.value);
-      acceptHelperOrder(helperIdElRef.value);
+      }            
+      acceptHelperOrder(id);
     }
 
     function acceptHelperOrder(id:number){
@@ -169,15 +179,14 @@ export default defineComponent({
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
             return;
-          }
-          const newArticleId = axiosResponse.data.body.id;
-          router.replace("../accept?id=" + newArticleId);
+          }          
+          router.replace("accept?id=" + props.id);
         })   
     }
 
     onMounted(() => {      
-      loadArticle(props.id);
-      loadHelperOrder(props.id);            
+      loadArticle(props.id);      
+      loadHelperOrder(props.id);                
     })
     watch(() => props.id, (newValue, oldValue) => {      
       loadArticle(props.id);      
@@ -186,7 +195,8 @@ export default defineComponent({
         
     return {
       acceptOrder,
-      state            
+      state,
+      idRef            
     }
   }
 })

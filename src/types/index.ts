@@ -11,6 +11,7 @@
     title:string;
     body:string;
     updateDate:string;
+    helperName:string;
     extra__writer:string;
     extra__cellphoneNo:string;
   }
