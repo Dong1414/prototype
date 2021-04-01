@@ -157,13 +157,15 @@ export default defineComponent({
         return;
       }
       const helperIdElRef = ref();
-
+      alert(helperIdElRef.value);
       acceptHelperOrder(helperIdElRef.value);
     }
 
     function acceptHelperOrder(id:number){
+      
       mainApi.acceptHelperOrder(id)
         .then(axiosResponse => {
+          
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
             return;
