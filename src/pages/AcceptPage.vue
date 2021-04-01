@@ -140,11 +140,7 @@ export default defineComponent({
       order: {} as IOrder,      
       helperOrders: [] as IHelperOrder[],
       id: Number
-    });    
-    const idRef = ref(null)
-
-    
-   
+    });        
 
     function loadArticle(id:number) {
       mainApi.order_detail(id)
@@ -174,13 +170,13 @@ export default defineComponent({
     function acceptHelperOrder(id:number){
       
       mainApi.acceptHelperOrder(id)
-        .then(axiosResponse => {
-          
+        .then(axiosResponse => {          
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
             return;
-          }          
-          router.replace("accept?id=" + props.id);
+          }
+          
+          router.replace("/accept?id=" + props.id);
         })   
     }
 
@@ -195,8 +191,7 @@ export default defineComponent({
         
     return {
       acceptOrder,
-      state,
-      idRef            
+      state,             
     }
   }
 })

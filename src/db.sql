@@ -30,6 +30,8 @@ CREATE TABLE `order` (
 
     `clientId` INT(10) UNSIGNED NOT NULL, #고객ID
     
+    `helperName` TEXT DEFAULT '' NOT NULL ,
+    
     stepLevel SMALLINT(2) UNSIGNED DEFAULT 1 NOT NULL COMMENT '(1=의뢰요청(의뢰검토),2=의뢰승인(장례준비),3=장례진행중,4=장례종료(결제미완료),5=결제완료)'
 
 )ENGINE=INNODB DEFAULT CHARSET=utf8;
@@ -50,7 +52,7 @@ SET regDate = NOW(),
 
     `directorId` = 1,
 
-    `clientId` = 3;
+    `clientId` = 2;
 
  
 
@@ -69,7 +71,7 @@ SET regDate = NOW(),
 
     `directorId` = 1,
 
-    `clientId` = 2;
+    `clientId` = 3;
 
  
 
@@ -410,7 +412,7 @@ SET regDate = NOW(),
     helperId = 1,
     
     stepLevel = 1,
-    `name` = '김도움',
+    `name` = '1도움',
     sido = '대전광역시';
     
 
@@ -426,7 +428,7 @@ SET regDate = NOW(),
     helperId = 1,
     
     stepLevel = 1,
-    `name` = '김도움',
+    `name` = '1도움',
     sido = '대전광역시';
 
 
@@ -442,19 +444,11 @@ SET regDate = NOW(),
     helperId = 1,
     
     stepLevel = 1,
-    `name` = '김도움',
+    `name` = '2도움',
     sido = '대전광역시';
 
-SELECT * FROM helper;
-
-SELECT A.*,
-IFNULL(A.name, "탈퇴") AS extra__writer		
-FROM `HelperOrder` AS A	
-LEFT JOIN `order` AS C
-ON A.orderId = 1
-WHERE 1
-
-
+SELECT * FROM `order`;
+SELECT * FROM `helperOrder`;
 
 
 
