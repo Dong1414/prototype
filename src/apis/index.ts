@@ -102,6 +102,12 @@ export interface MainApi__order_detail__IResponseBody extends Base__IResponseBod
   };
 }
 
+export interface MainApi__helper_detail__IResponseBody extends Base__IResponseBodyType1 {
+  body:{
+    helperOrder: IHelperOrder
+  };
+}
+
 export interface MainApi__article_doWrite__IResponseBody extends Base__IResponseBodyType1 {
   body:{
     id: number
@@ -179,6 +185,9 @@ export class MainApi extends HttpClient {
   public order_detail(id: number) {
     return this.get<MainApi__order_detail__IResponseBody>(`/usr/order/detail?id=${id}`);  
   }
+  public helper_detail(id: number) {
+    return this.get<MainApi__helper_detail__IResponseBody>(`/usr/order/helperDetail?id=${id}`);  
+  }
 
   public helperOrders(id: number) {
     return this.get<MainApi__helperOrder_list__IResponseBody>(`/usr/helperOrder/list?id=${id}`);  
@@ -202,13 +211,12 @@ export class MainApi extends HttpClient {
       }
     );
   }
-  public member_doExpertJoin(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, license:string, career:string, relId:number) {
+  public member_doExpertJoin(loginId:string, loginPw:string, name:string, cellphoneNo:string, email:string, genFileIdsStr:string, sido:string, license:string, career:string, relId:number) {
     return this.postByForm<MainApi__member_doExpertJoin__IResponseBody>(
       `/usr/member/doExpertJoin`, {
         loginId,
         loginPw,
         name,
-        nickname,
         cellphoneNo,
         email,
         genFileIdsStr,

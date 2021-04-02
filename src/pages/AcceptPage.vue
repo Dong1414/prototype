@@ -85,8 +85,8 @@
         <tbody class="bg-gray-200">
           
           <tr class="bg-white border-4 border-gray-200 text-center" v-bind:key="helperOrder.id" v-for="helperOrder in state.helperOrders">            
-              <td class="px-16 py-2">
-                <span>{{ helperOrder.extra__writer }}</span>
+              <td class="px-16 py-2">                
+                <router-link :to="'/member/helperDetail?id=' + helperOrder.id" >{{ helperOrder.extra__writer }}</router-link>
               </td>
               <td class="px-16 py-2">
                 <span>
@@ -98,7 +98,8 @@
                   {{ helperOrder.career }} 
                 </span>
               </td>
-              <td class="px-16 py-2">
+              <td class="px-16 py-2 flex justify-center">
+                  <router-link :to="'/member/helperDetail?id=' + helperOrder.id" class="btn-primary mr-8">정보확인</router-link>
                 <form v-on:submit.prevent="acceptOrder(helperOrder.id)">                                                         
                   <input type="submit"  value="수락" class="btn-primary" />                  
                 </form>

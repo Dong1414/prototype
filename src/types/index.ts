@@ -23,7 +23,10 @@
     helperId:number;
     term:string;
     funeralHome:string;
+    sido:string;
+    name:string;
     title:string;    
+    career:string;
     updateDate:string;
     extra__writer:string;
     extra__cellphoneNo:string;    
@@ -34,8 +37,7 @@
     loginId:string;
     loginPw:string;
     authLevel:number;
-    name:string;
-    nickname:string;
+    name:string;    
     cellphoneNo:string;
     email:string;
     sido:string;

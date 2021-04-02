@@ -1,23 +1,23 @@
 <template>
-  <TitleBar>일정 상세</TitleBar>
+  <TitleBar>도우미 상세</TitleBar>
   
   <section class="section section-member-login-form px-2">
     <div class="container mx-auto">
       <div class="px-6 py-6 bg-white rounded-lg shadow-md">
         <div class="inputform">
           <div class="wid10">
-            <span>의뢰인</span>
+            <span>이름</span>
           </div>
           <div class="w-auto">
-            <span>{{ state.order.extra__writer }}</span>
+            <span>{{ state.helperOrder.name }}</span>
           </div>        
         </div>
         <div class="inputform">
           <div class="wid10">
-            <span>기간</span>
+            <span>활동지역</span>
           </div>
           <div class="w-auto">
-            <span>{{ state.order.term }}</span>
+            <span>{{ state.helperOrder.sido }}</span>
           </div>
         </div>
         <div class="inputform">
@@ -25,40 +25,36 @@
             <span>연락처</span>
           </div>
           <div class="w-auto">
-            <span>{{ state.order.extra__cellphoneNo }}</span>
+            <span>{{ state.helperOrder.extra__cellphoneNo }}</span>
           </div>
-        </div>
+        </div>        
         <div class="inputform">
           <div class="wid10">
-            <span>장소</span>
+            <span>경력</span>
           </div>
           <div class="w-auto">
-            <span>{{ state.order.funeralHome }}</span>
+            <span>{{ state.helperOrder.career }}</span>
           </div>
         </div>
-        <div class="inputform">
-          <div class="wid10">
-            <span>요청사항</span>
-          </div>
-          <div class="w-auto">
-            <ul class="text-left">
-              <li>{{ state.order.body }}</li>              
-            </ul>
-          </div>                        
-        </div>
+          <div>
+            <form v-on:submit.prevent="acceptOrder">           
+              <input type="submit" value="수락" class="btn-primary" />
+            </form>
+          </div>                  
       </div>
     </div>
   </section>
+  
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, reactive, getCurrentInstance, onMounted, watch } from 'vue'
-import { IOrder } from '../types'
+import { IHelperOrder } from '../types'
 import { MainApi } from '../apis'
 import { Router } from 'vue-router'
 
 export default defineComponent({
-  name: 'CaleandarDetailPage',
+  name: 'OrderDetailPage',
   props: {
      globalShare: {
       type: Object,
@@ -73,25 +69,45 @@ export default defineComponent({
     const router:Router = getCurrentInstance()?.appContext.config.globalProperties.$router;
     const mainApi:MainApi = getCurrentInstance()?.appContext.config.globalProperties.$mainApi;        
     const state = reactive({
-      order: {} as IOrder
+      helperOrder: {} as IHelperOrder
     });
-    function loadArticle(id:number) {
-      mainApi.order_detail(id)
+    function loadHelper(id:number) {
+      mainApi.helper_detail(id)
       .then(axiosResponse => {        
-        state.order = axiosResponse.data.body.order;                                
-        
+        state.helperOrder = axiosResponse.data.body.helperOrder;                                        
       });
     }
 
-    onMounted(() => {      
-      loadArticle(props.id);            
+    onMounted(() => {            
+      loadHelper(props.id);            
     })
     watch(() => props.id, (newValue, oldValue) => {      
-      loadArticle(props.id);      
+      loadHelper(props.id);      
     })            
-      
+
+    function acceptOrder() {
+      const yesOrNo = confirm('요청을 수락 하시겠습니까?').valueOf()
+
+      if(yesOrNo == false){
+        return;
+      }
+      acceptHelperOrder(state.helperOrder.id);
+    }
+
+    function acceptHelperOrder(id:number){
+      mainApi.acceptHelperOrder(id)
+        .then(axiosResponse => {
+          alert(axiosResponse.data.msg);
+          if ( axiosResponse.data.fail ) {
+            return;
+          }          
+          router.replace("../accept?id=" + state.helperOrder.orderId);
+        })   
+    }
+    
     return {
-      state      
+      state,  
+      acceptOrder    
     }
   }
 })

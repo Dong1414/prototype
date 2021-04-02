@@ -19,10 +19,7 @@
           </FormRow>
           <FormRow title="이름">
             <input ref="nameElRef" class="form-row-input" type="text" placeholder="이름을 입력해주세요.">
-          </FormRow>
-          <FormRow title="닉네임">
-            <input ref="nicknameElRef" class="form-row-input" type="text" placeholder="닉네임을 입력해주세요.">
-          </FormRow>
+          </FormRow>         
           <FormRow title="전화번호">
             <input ref="cellphoneNoElRef" class="form-row-input" type="tel" placeholder="전화번호를 입력해주세요.">
           </FormRow>
@@ -93,7 +90,6 @@ export default defineComponent({
     const loginPwConfirmElRef = ref<HTMLInputElement>();
     const profileImgElRef = ref<HTMLInputElement>();
     const nameElRef = ref<HTMLInputElement>();
-    const nicknameElRef = ref<HTMLInputElement>();
     const cellphoneNoElRef = ref<HTMLInputElement>();
     const emailElRef = ref<HTMLInputElement>();
     const sidoElRef = ref<HTMLInputElement>();    
@@ -103,7 +99,7 @@ export default defineComponent({
     const careerElRef2 = ref<HTMLInputElement>();
     const relidElRef = 1;        
     
-    function checkAndJoin() {     
+    function checkAndJoin() {
       // 로그인아이디 체크
       if ( loginIdElRef.value == null ) {
         return;
@@ -145,17 +141,6 @@ export default defineComponent({
       if ( nameEl.value.length == 0 ) {
         alert('이름을 입력해주세요.');
         nameEl.focus();
-        return;
-      }
-      // 별명 체크
-      if ( nicknameElRef.value == null ) {
-        return;
-      }
-      const nicknameEl = nicknameElRef.value;
-      nicknameEl.value = nicknameEl.value.trim();
-      if ( nicknameEl.value.length == 0 ) {
-        alert('별명을 입력해주세요.');
-        nicknameEl.focus();
         return;
       }
       // 휴대전화번호 체크
@@ -243,7 +228,7 @@ export default defineComponent({
       
       
       const startJoin = (genFileIdsStr:string) => {
-        join(loginIdEl.value, loginPwEl.value, nameEl.value, nicknameEl.value, cellphoneNoEl.value, emailEl.value, genFileIdsStr, sidoEl.value, licenseEl1.value, careerEl);
+        join(loginIdEl.value, loginPwEl.value, nameEl.value, cellphoneNoEl.value, emailEl.value, genFileIdsStr, sidoEl.value, licenseEl1.value, careerEl);
       };
       const startFileUpload = (onSuccess:Function) => {
         if ( !!!profileImgElRef.value?.files ) {
@@ -264,8 +249,8 @@ export default defineComponent({
       };
       startFileUpload(startJoin);
     }
-    function join(loginId:string, loginPw:string, name:string, nickname:string, cellphoneNo:string, email:string, genFileIdsStr:string, sidoEl:string, licenseEl:string, careerEl:string) {
-      mainApi.member_doExpertJoin(loginId, loginPw, name, nickname, cellphoneNo, email, genFileIdsStr, sidoEl, licenseEl, careerEl, relidElRef)
+    function join(loginId:string, loginPw:string, name:string, cellphoneNo:string, email:string, genFileIdsStr:string, sidoEl:string, licenseEl:string, careerEl:string) {
+      mainApi.member_doExpertJoin(loginId, loginPw, name, cellphoneNo, email, genFileIdsStr, sidoEl, licenseEl, careerEl, relidElRef)
         .then(axiosResponse => {
           alert(axiosResponse.data.msg);
           if ( axiosResponse.data.fail ) {
@@ -281,7 +266,6 @@ export default defineComponent({
       loginPwConfirmElRef,
       profileImgElRef,
       nameElRef,
-      nicknameElRef,
       cellphoneNoElRef,
       emailElRef,
       sidoElRef,
