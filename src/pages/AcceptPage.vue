@@ -54,7 +54,7 @@
           </div>
           <div class="w-auto">
             <ul class="text-left">
-              <li>{{ state.order.helperName }}</li>              
+              <li><router-link :to="'/member/helperDetail?id=' + helperOrder.id" >{{ state.order.helperName }}</router-link></li>              
             </ul>
           </div>
         </div>             
